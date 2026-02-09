@@ -31,12 +31,12 @@ public class Client {
 
             SecretKey sharedKey = AES_Simetric.keygenKeyGeneration(128);
             byte[] keyBytes = sharedKey.getEncoded();
-            byte[] keyHash = HashUtil.sha256(keyBytes);
+            byte[] keyHash = HashUtil.sha256(keyBytes); //per a que si algu modifica la clau a mitj cami no coincideixi
 
-            byte[] encryptedKey = RSA_Asimetric.encryptData(keyBytes, serverPublicKey);
-            byte[] encryptedHash = RSA_Asimetric.encryptData(keyHash, serverPublicKey);
+            byte[] encryptedKey = RSA_Asimetric.encryptData(keyBytes, serverPublicKey); // d'aquesta forma, cifrant la clau y el hash amb RSA 
+            byte[] encryptedHash = RSA_Asimetric.encryptData(keyHash, serverPublicKey); // nomes el servidor amb la seva privada podra desxifrar-ho
 
-            Packet keyPacket = new Packet(encryptedKey, encryptedHash);
+            Packet keyPacket = new Packet(encryptedKey, encryptedHash); // enviam es paquet de bytes a servidor
             out.writeObject(keyPacket);
             out.flush();
 
