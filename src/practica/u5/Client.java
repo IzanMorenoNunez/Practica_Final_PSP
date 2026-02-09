@@ -4,6 +4,7 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
 import java.security.PublicKey;
+import javax.crypto.SecretKey;
 
 public class Client {
     private static final String HOST = "127.0.0.1";
@@ -16,7 +17,7 @@ public class Client {
 
             out.flush();
 
-            out.writeObject("PUBLIC_KEY_REQ");
+            out.writeObject("PUBLIC_KEY_REQ"); // missatge de control per demanar clau a servidor
             out.flush();
 
             Object response = in.readObject();
@@ -27,6 +28,19 @@ public class Client {
 
             PublicKey serverPublicKey = (PublicKey) response;
             System.out.println("Public key received: " + serverPublicKey.getAlgorithm());
+
+            SecretKey sharedKey = AES_Simetric.keygenKeyGeneration(128);
+            byte[] keyBytes = sharedKey.getEncoded();
+            byte[] keyHash = HashUtil.sha256(keyBytes);
+
+            byte[] encryptedKey = RSA_Asimetric.encryptData(keyBytes, serverPublicKey);
+            byte[] encryptedHash = RSA_Asimetric.encryptData(keyHash, serverPublicKey);
+
+            Packet keyPacket = new Packet(encryptedKey, encryptedHash);
+            out.writeObject(keyPacket);
+            out.flush();
+
+            System.out.println("Shared key (encrypted) sent to server.");
         } catch (Exception ex) {
             System.err.println("Client error: " + ex);
         }
