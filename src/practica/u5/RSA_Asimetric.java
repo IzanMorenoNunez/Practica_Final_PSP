@@ -17,7 +17,7 @@ public class RSA_Asimetric {
         } catch (NoSuchAlgorithmException ex) {
             System.err.println("Generador no disponible.");
         }
-        return keys;
+        return keys; 
     }
 
     public static byte[] encryptData(byte[] data, PublicKey pub) {

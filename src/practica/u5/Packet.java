@@ -13,5 +13,5 @@ public class Packet implements Serializable {
     public Packet(byte[] message, byte[] hash) {
         this.message = message;
         this.hash = hash;
-    }
+    } 
 }

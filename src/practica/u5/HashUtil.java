@@ -15,5 +15,5 @@ public class HashUtil {
         } catch (Exception ex) {
             throw new IllegalStateException("SHA-256 not available", ex);
         }
-    }
+    } 
 }

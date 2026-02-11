@@ -1,0 +1,27 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "type": "java",
+      "name": "Run Server",
+      "request": "launch",
+      "mainClass": "practica.u5.Server",
+      "vmArgs": "--add-exports=java.base/sun.security.x509=ALL-UNNAMED"
+    },
+    {
+      "type": "java",
+      "name": "Run Client",
+      "request": "launch",
+      "mainClass": "practica.u5.Client",
+      "vmArgs": "--add-exports=java.base/sun.security.x509=ALL-UNNAMED"
+    },
+    {
+      "type": "java",
+      "name": "Run Client (Tamper Cert)",
+      "request": "launch",
+      "mainClass": "practica.u5.Client",
+      "args": "--tamper-cert",
+      "vmArgs": "--add-exports=java.base/sun.security.x509=ALL-UNNAMED"
+    }
+  ]
+}
