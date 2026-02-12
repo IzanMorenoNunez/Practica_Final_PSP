@@ -42,7 +42,7 @@ public class Client {
                 System.out.println("Certificate tampering mode enabled."); // u aqui tambe, i sa validaci falla.
             }
 
-            PublicKey serverPublicKey = SelfSignedCert.validateAndGetPublicKey(certBytes); //E l cliente valida el certificado antes de confiar
+            PublicKey serverPublicKey = SelfSignedCert.validateAndGetPublicKey(certBytes); //El cliente valida el certificado antes de confiar
             System.out.println("Certificate validated. Public key received: " + serverPublicKey.getAlgorithm());
 
             SecretKey sharedKey = AES_Simetric.keygenKeyGeneration(128);
@@ -75,7 +75,7 @@ public class Client {
                     out.writeObject(new Packet(encryptedWord, encryptedWordHash));
                     out.flush();
 
-                    Object ackObj = in.readObject(); //ack, selak enviada por receptor para confirmar la recepcion correcta de los datos, espera servidor
+                    Object ackObj = in.readObject(); //ack, señal enviada por receptor para confirmar la recepcion correcta de los datos, espera servidor
                     if (!(ackObj instanceof Packet)) {
                         System.out.println("Unexpected ACK payload.");
                         break;

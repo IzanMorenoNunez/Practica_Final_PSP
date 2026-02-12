@@ -10,7 +10,7 @@ import java.security.MessageDigest;
 public class HashUtil {
     public static byte[] sha256(byte[] data) {
         try {
-            MessageDigest md = MessageDigest.getInstance("SHA-256");
+            MessageDigest md = MessageDigest.getInstance("SHA-256"); 
             return md.digest(data); // devuelve el resultado como byte[]
         } catch (Exception ex) {
             throw new IllegalStateException("SHA-256 not available", ex);
